@@ -1,6 +1,5 @@
 import {defineType, defineField} from 'sanity'
 import {bibleBooks} from '../data/bibleBooks'
-import ScriptureNumberInput from '../components/scripture/ScriptureNumberInput'
 
 export const scriptureReferenceType = defineType({
   name: 'scriptureReference',
@@ -17,18 +16,13 @@ export const scriptureReferenceType = defineType({
           value: book.id,
         })),
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'startChapter',
       title: 'Starting Chapter',
       type: 'number',
-      components: {
-        input: ScriptureNumberInput,
-      },
       validation: (Rule) =>
-        Rule.required()
-          .integer()
+        Rule.integer()
           .min(1)
           .custom((chapter, context) => {
             const parent = context.parent as {
@@ -169,14 +163,21 @@ export const scriptureReferenceType = defineType({
     Rule.custom((reference) => {
       if (!reference) return true
 
-      const {
-        startChapter,
-        startVerse,
-        endChapter,
-        endVerse
-      } = reference
+      const {book, startChapter, startVerse, endChapter, endVerse} = reference
 
-      if (startChapter == null) return true
+      const hasAnyValue = [book, startChapter, startVerse, endChapter, endVerse].some(
+        (value) => value != null && value !== '',
+      )
+
+      if (!hasAnyValue) return true
+
+      if (!book) {
+        return 'Please select a Bible book'
+      }
+
+      if (startChapter == null) {
+        return 'Please select a starting chapter'
+      }
 
       const lastChapter = endChapter ?? startChapter
 
@@ -197,14 +198,10 @@ export const scriptureReferenceType = defineType({
         return 'Ending verse cannot be before starting verse'
       }
 
-      if (
-        endChapter != null &&
-        startVerse != null &&
-        endVerse == null
-      ) {
+      if (endChapter != null && startVerse != null && endVerse == null) {
         return 'Ending verse is required for a passage spanning chapters'
       }
 
       return true
-    })
+    }),
 })
