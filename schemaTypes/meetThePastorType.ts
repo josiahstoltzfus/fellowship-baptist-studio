@@ -2,7 +2,7 @@ import {defineType, defineField} from 'sanity'
 
 export const meetThePastorType = defineType({
   name: 'meetThePastor',
-  title: 'Meet the Pastor',
+  title: 'Meet the Pastor Page',
   type: 'document',
   fields: [
     defineField({
@@ -17,7 +17,7 @@ export const meetThePastorType = defineType({
   preview: {
     prepare() {
       return {
-        title: 'Meet the Pastor',
+        title: 'Meet the Pastor Page',
       }
     },
   },

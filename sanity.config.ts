@@ -22,11 +22,11 @@ const structure: StructureResolver = (S) =>
         (item) => !singletonTypes.includes(item.getId() ?? ''),
       ),
       S.listItem()
-        .title('Our Story')
+        .title('Our Story Page')
         .id('ourStory')
         .child(S.document().schemaType('ourStory').documentId('ourStory')),
       S.listItem()
-        .title('Meet the Pastor')
+        .title('Meet the Pastor Page')
         .id('meetThePastor')
         .child(S.document().schemaType('meetThePastor').documentId('meetThePastor')),
     ])

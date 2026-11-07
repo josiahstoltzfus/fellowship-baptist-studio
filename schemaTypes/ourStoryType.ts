@@ -2,7 +2,7 @@ import {defineType, defineField} from 'sanity'
 
 export const ourStoryType = defineType({
   name: 'ourStory',
-  title: 'Our Story',
+  title: 'Our Story Page',
   type: 'document',
   fields: [
     defineField({
@@ -22,7 +22,7 @@ export const ourStoryType = defineType({
   preview: {
     prepare() {
       return {
-        title: 'Our Story',
+        title: 'Our Story Page',
       }
     }
   }

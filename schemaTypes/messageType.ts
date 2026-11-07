@@ -49,6 +49,13 @@ export const messageType = defineType({
       },
     }),
     defineField({
+      name: 'durationSeconds',
+      title: 'Audio Duration (seconds)',
+      type: 'number',
+      description: 'The total length of the audio recording in seconds.',
+      validation: (Rule) => Rule.integer().min(0),
+    }),
+    defineField({
       name: 'videoUrl',
       title: 'YouTube Video URL',
       type: 'url',
